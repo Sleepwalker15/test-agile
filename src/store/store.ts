@@ -10,7 +10,6 @@ const persistConfig = {
   storage,
 }
 
-//console.log(localStorage.getItem("tasks"))
 
 const defaultState = {
   'needs': [
@@ -58,6 +57,7 @@ const defaultState = {
 const reducer = (state = defaultState, action) => {
     switch (action.type) {
         case 'ADD_TASK':
+          console.log({...state, needs:[...state.needs, action.payload]})
           return {...state, needs:[...state.needs, action.payload]};
         case 'REMOVE_TASK':
           return {...state, needs:[...action.payload] };
@@ -85,3 +85,49 @@ export default () => {
 
 export const store = createStore(persistedReducer);
 export const persistor = persistStore(store)
+
+export const addTask = ():{
+  type: "ADD_TASK",
+} => {
+  return {
+    type: "ADD_TASK",
+
+  } as const;
+}
+
+export const removeTask = (
+  ):{
+  type: "REMOVE_TASK",
+} => {
+  return {
+    type: "REMOVE_TASK",
+
+  } as const;
+}
+
+export const dropTaskFrom = (
+):{
+  type: "DROP_TASK_FROM",
+} => {
+  return {
+    type: "DROP_TASK_FROM",
+  } as const;
+}
+
+export const swapTask = (
+):{
+  type: "SWAP_TASK",
+} => {
+  return {
+    type: "SWAP_TASK",
+  } as const;
+}
+
+export const change_task_status = (
+):{
+  type: "CHANGE_TASK_STATUS",
+} => {
+  return {
+    type: "CHANGE_TASK_STATUS",
+  } as const;
+}

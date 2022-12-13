@@ -1,17 +1,17 @@
-import { Box, ScaleFade, Button, Text } from '@chakra-ui/react';
-import _ from 'lodash';
-import { memo, useState } from 'react';
-import { useTaskDragAndDrop } from '../hooks/useTaskDragAndDrop';
-import { TaskModel } from '../utils/models';
+import { Box, ScaleFade, Button, Text } from "@chakra-ui/react";
+import _ from "lodash";
+import { memo, useState } from "react";
+import { useTaskDragAndDrop } from "../hooks/useTaskDragAndDrop";
+import { TaskModel } from "../utils/models";
 import { useDispatch } from "react-redux";
-import TaskModal from './TaskModal';
+import TaskModal from "./TaskModal";
 
 type TaskProps = {
   index: number;
   task: TaskModel;
   isEditing: boolean;
-  onUpdate?: (id: TaskModel['id'], updatedTask: TaskModel) => void;
-  onDelete: (id: TaskModel['id']) => void;
+  onUpdate?: (id: TaskModel["id"], updatedTask: TaskModel) => void;
+  onDelete: (id: TaskModel["id"]) => void;
   onDropHover: (i: number, j: number) => void;
 };
 
@@ -21,12 +21,11 @@ const Task = ({
   onUpdate: handleUpdate,
   onDropHover: handleDropHover,
   onDelete: handleDelete,
-  isEditing
+  isEditing,
 }: TaskProps) => {
-
   const { ref, isDragging } = useTaskDragAndDrop<HTMLDivElement>(
     { task, index: index },
-    handleDropHover,
+    handleDropHover
   );
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
@@ -39,19 +38,18 @@ const Task = ({
     handleDelete(task.id);
   };
 
-
   const handleUpdateClick = () => {
     setModalOpen(true);
     console.log(task.id, task);
-  }
+  };
 
-  const onCloseModal =  () => {
-    setModalOpen(false)
-  }
+  const onCloseModal = () => {
+    setModalOpen(false);
+  };
 
   const handleConfirm = () => {
-    setConfirme(!confirme)
-  }
+    setConfirme(!confirme);
+  };
 
   return (
     <ScaleFade in={true} unmountOnExit>
@@ -71,34 +69,66 @@ const Task = ({
         userSelect="none"
         bgColor={task.color}
         opacity={isDragging ? 0.5 : 1}
-      > 
-        <Text
-          color="gray.700"
-        >{task.title}
+      >
+        <Text color="gray.700">{task.title}</Text>
+        <Text fontSize="sm" as="abbr">
+          {task.description}
         </Text>
-        <Text
-          fontSize='sm'
-          as='abbr'
-        >{task.description}
-        </Text>
-       
-         {isEditable ? (
-          <div style={{display:'flex', justifyContent: 'flex-end'}}>
+
+        {isEditable ? (
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
             {confirme ? (
-            <div>
-              <Button size='xs' onClick={handleConfirm} variant='ghost' colorScheme='red'>Удалить</Button>
-              <Button size='xs' onClick={handleUpdateClick}  variant='ghost' colorScheme='blue'>Редактировать</Button>
-            </div>
-            ): (
-              <div style={{display:'flex', justifyContent: 'flex-end', width:'150px'}}>
-                <Text fontSize='xs' as='abbr' style={{margin:'auto'}} >Удалить?</Text>
-                  <Button size='xs' onClick={handleDeleteClick} variant='ghost' colorScheme='red'>Да</Button>
-                  <Button size='xs' onClick={handleConfirm} variant='ghost' colorScheme='blue'>Нет</Button>
-                </div>
+              <div>
+                <Button
+                  size="xs"
+                  onClick={handleConfirm}
+                  variant="ghost"
+                  colorScheme="red"
+                >
+                  Удалить
+                </Button>
+                <Button
+                  size="xs"
+                  onClick={handleUpdateClick}
+                  variant="ghost"
+                  colorScheme="blue"
+                >
+                  Редактировать
+                </Button>
+              </div>
+            ) : (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  width: "150px",
+                }}
+              >
+                <Text fontSize="xs" as="abbr" style={{ margin: "auto" }}>
+                  Удалить?
+                </Text>
+                <Button
+                  size="xs"
+                  onClick={handleDeleteClick}
+                  variant="ghost"
+                  colorScheme="red"
+                >
+                  Да
+                </Button>
+                <Button
+                  size="xs"
+                  onClick={handleConfirm}
+                  variant="ghost"
+                  colorScheme="blue"
+                >
+                  Нет
+                </Button>
+              </div>
             )}
-            
           </div>
-        ) : (<div></div>)}
+        ) : (
+          <div></div>
+        )}
       </Box>
       <TaskModal
         isOpen={modalOpen}
@@ -109,7 +139,7 @@ const Task = ({
       />
     </ScaleFade>
   );
-}
+};
 export default memo(Task, (prev, next) => {
   if (
     _.isEqual(prev.task, next.task) &&
