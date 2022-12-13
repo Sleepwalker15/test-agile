@@ -11,19 +11,19 @@ import {
 } from "@chakra-ui/react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { TaskModel } from "../utils/models";
+import { CollectionOfTaskType, TaskModel } from "../utils/types";
 import { v4 as uuidv4 } from "uuid";
 import { pickChakraRandomColor } from "../utils/helpers";
 import { ColumnType } from "../utils/enums";
 import { useState } from "react";
-import { values } from "lodash";
-import { addTask } from "../store/store";
+
+
+
 
 type AddTaskModalProps = {
   title: string;
   isOpen: boolean;
   onClose: () => void;
-
   task?: TaskModel;
   addingTask: boolean;
 };
@@ -37,24 +37,27 @@ const TaskModal = ({
 }: AddTaskModalProps) => {
   const dispatch = useDispatch();
 
-  const taskCollection = useSelector((state) => state);
-  const tasks = taskCollection["needs"];
+  const taskCollection: CollectionOfTaskType = useSelector((state) => state);
 
-  const [taskTitle, setTaskTitle] = useState<string>("");
-  const [taskDescription, setTaskDescription] = useState<string>("");
+  const tasks: TaskModel[] = taskCollection["needs"];
+
+
+  const [taskTitle, setTaskTitle] = useState<string>(task ? task.title : "");
+  const [taskDescription, setTaskDescription] = useState<string>( task ? task.description : "");
   const [confirme, setConfirme] = useState<boolean>(true);
-
-  const newColumnTask: TaskModel = {
-    id: uuidv4(),
-    title: taskTitle,
-    description: taskDescription,
-    color: pickChakraRandomColor(".300"),
-    isEditing: false,
-    column: ColumnType.NEEDS,
-  };
 
 
   const addTask = () => {
+
+    const newColumnTask: TaskModel = {
+      id: uuidv4(),
+      title: taskTitle,
+      description: taskDescription,
+      color: pickChakraRandomColor(".300"),
+      isEditing: false,
+      column: ColumnType.NEEDS,
+    };
+
     dispatch({ type: "ADD_TASK", task: newColumnTask });
     setTaskTitle("");
     setTaskDescription("");
@@ -62,8 +65,11 @@ const TaskModal = ({
   };
 
   const editTask = () => {
+
     const id = task.id;
+
     task.title = taskTitle;
+
     task.description = taskDescription;
     dispatch({
       type: "EDIT_TASK",

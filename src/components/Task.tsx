@@ -2,7 +2,7 @@ import { Box, ScaleFade, Button, Text } from "@chakra-ui/react";
 import _ from "lodash";
 import { memo, useState } from "react";
 import { useTaskDragAndDrop } from "../hooks/useTaskDragAndDrop";
-import { TaskModel } from "../utils/models";
+import { TaskModel } from "../utils/types";
 import { useDispatch } from "react-redux";
 import TaskModal from "./TaskModal";
 

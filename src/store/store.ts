@@ -3,7 +3,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { v4 as uuidv4 } from "uuid";
 import { ColumnType } from "../utils/enums";
-import { TaskModel } from "../utils/models";
+import { CollectionOfTaskType, TaskModel, ActionsTypes } from "../utils/types";
 import { swap } from "../utils/helpers";
 import column from "../components/Column";
 
@@ -12,7 +12,7 @@ const persistConfig = {
   storage,
 };
 
-const defaultState = {
+const defaultState: CollectionOfTaskType = {
   needs: [
     {
       id: uuidv4(),
@@ -53,7 +53,11 @@ const defaultState = {
   ],
 };
 
-const reducer = (state = defaultState, action) => {
+
+
+const reducer = (state = defaultState,
+                 action: ActionsTypes): CollectionOfTaskType => {
+
   switch (action.type) {
     case "ADD_TASK":
       return { ...state, needs: [...state.needs, action.task] };

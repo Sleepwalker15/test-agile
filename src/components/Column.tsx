@@ -13,7 +13,7 @@ import Task from "./Task";
 import TaskModal from "./TaskModal";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { TaskModel } from "../utils/models";
+import { CollectionOfTaskType, TaskModel } from "../utils/types";
 import { swap } from "../utils/helpers";
 
 const ColumnColorScheme: Record<ColumnType, string> = {
@@ -35,7 +35,7 @@ const Column = ({ column }: { column: ColumnType }) => {
 
   const isAddable = column === "needs" ? true : false;
 
-  const taskCollection = useSelector((state) => state);
+  const taskCollection: CollectionOfTaskType = useSelector((state) => state);
 
   const tasks = taskCollection[column];
 
@@ -55,11 +55,13 @@ const Column = ({ column }: { column: ColumnType }) => {
 
   const swapTasks = (i: number, j: number) => {
 
+
     const columnTasks = taskCollection[column];
 
     dispatch({
       type: "SWAP_TASK",
       taskCollection: {
+
         ...taskCollection,
         [column]: swap(columnTasks, i, j),
       },
@@ -67,6 +69,7 @@ const Column = ({ column }: { column: ColumnType }) => {
   };
 
   const dropTaskFrom = (from: ColumnType, id: TaskModel["id"]) => {
+
     const fromColumnTasks = taskCollection[from];
 
     const toColumnTasks = taskCollection[column];
@@ -75,9 +78,11 @@ const Column = ({ column }: { column: ColumnType }) => {
       (task: TaskModel) => task.id === id
     );
 
+
     dispatch({
       type: "DROP_TASK_FROM",
       taskCollection: {
+
         ...taskCollection,
 
         [from]: fromColumnTasks.filter((task: TaskModel) => task.id !== id),
