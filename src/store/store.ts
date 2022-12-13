@@ -52,12 +52,10 @@ const defaultState = {
   ] 
 };
 
-
-  
 const reducer = (state = defaultState, action) => {
     switch (action.type) {
         case 'ADD_TASK':
-          console.log({...state, needs:[...state.needs, action.payload]})
+
           return {...state, needs:[...state.needs, action.payload]};
         case 'REMOVE_TASK':
           return {...state, needs:[...action.payload] };
