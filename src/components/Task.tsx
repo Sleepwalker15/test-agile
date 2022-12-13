@@ -32,7 +32,6 @@ const Task = ({
   const [confirme, setConfirme] = useState<boolean>(true);
 
   const isEditable = task.column === "needs" ? true : false;
-  const dispatch = useDispatch();
 
   const handleDeleteClick = () => {
     handleDelete(task.id);
@@ -40,7 +39,7 @@ const Task = ({
 
   const handleUpdateClick = () => {
     setModalOpen(true);
-    console.log(task.id, task);
+
   };
 
   const onCloseModal = () => {

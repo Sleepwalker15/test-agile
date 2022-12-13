@@ -49,18 +49,18 @@ const Column = ({ column }: { column: ColumnType }) => {
   const deleteTask = (id: string) => {
     dispatch({
       type: "REMOVE_TASK",
-      payload: tasks.filter((task: TaskModel) => task.id !== id),
+      tasksId: id,
     });
   };
 
   const swapTasks = (i: number, j: number) => {
+
     const columnTasks = taskCollection[column];
 
     dispatch({
       type: "SWAP_TASK",
-      payload: {
+      taskCollection: {
         ...taskCollection,
-
         [column]: swap(columnTasks, i, j),
       },
     });
@@ -77,7 +77,7 @@ const Column = ({ column }: { column: ColumnType }) => {
 
     dispatch({
       type: "DROP_TASK_FROM",
-      payload: {
+      taskCollection: {
         ...taskCollection,
 
         [from]: fromColumnTasks.filter((task: TaskModel) => task.id !== id),

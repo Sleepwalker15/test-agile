@@ -55,7 +55,7 @@ const TaskModal = ({
 
 
   const addTask = () => {
-    dispatch({ type: "ADD_TASK", payload: newColumnTask });
+    dispatch({ type: "ADD_TASK", task: newColumnTask });
     setTaskTitle("");
     setTaskDescription("");
     onClose();
@@ -66,8 +66,8 @@ const TaskModal = ({
     task.title = taskTitle;
     task.description = taskDescription;
     dispatch({
-      type: "CHANGE_TASK_STATUS",
-      payload: [...tasks.filter((task: TaskModel) => task.id !== id), task],
+      type: "EDIT_TASK",
+      columnTask: [...tasks.filter((task: TaskModel) => task.id !== id), task],
     });
     setTaskTitle("");
     setTaskDescription("");
