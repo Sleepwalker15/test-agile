@@ -37,8 +37,8 @@ const TaskModal = ({
 }: AddTaskModalProps) => {
   const dispatch = useDispatch();
 
-  // @ts-ignore
-  const taskCollection: CollectionOfTaskType = useSelector((state) => state);
+
+  const taskCollection: CollectionOfTaskType = useSelector((state: CollectionOfTaskType) => state);
 
   const tasks: TaskModel[] = taskCollection["needs"];
 

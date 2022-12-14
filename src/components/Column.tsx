@@ -35,8 +35,8 @@ const Column = ({ column }: { column: ColumnType }) => {
 
   const isAddable = column === "needs" ? true : false;
 
-  // @ts-ignore
-  const taskCollection: CollectionOfTaskType = useSelector((state) => state);
+
+  const taskCollection: CollectionOfTaskType = useSelector((state: CollectionOfTaskType) => state);
 
   const tasks = taskCollection[column];
 
