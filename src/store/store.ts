@@ -77,7 +77,15 @@ const reducer = (
     case "SWAP_TASK":
       return {...state, ...action.taskCollection};
     case "EDIT_TASK":
-      return { ...state, needs:[...action.columnTask] };
+
+      return {
+        ...state,
+        needs:[
+          ...state.needs.filter(
+            (task: TaskModel) => task.id !== action.editableTask.id
+          ), action.editableTask
+        ]};
+
     default:
       return state;
   }

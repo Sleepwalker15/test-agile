@@ -25,14 +25,12 @@ export interface DragItem {
 
 
 export type ActionsTypes = {
-  type: "ADD_TASK" | "REMOVE_TASK" | "DROP_TASK_FROM" | "SWAP_TASK" | "EDIT_TASK";
+  type:  "ADD_TASK"|"REMOVE_TASK"|"DROP_TASK_FROM"|"SWAP_TASK"|"EDIT_TASK";
   task: TaskModel;
   tasksId: string;
   taskCollection: CollectionOfTaskType,
-  columnTask: TaskModel[],
+  editableTask: TaskModel,
 }
-
-
 
 
 

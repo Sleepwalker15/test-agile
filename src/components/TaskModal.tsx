@@ -65,14 +65,9 @@ const TaskModal = ({
   };
 
   const editTask = () => {
-
-    const id = task.id;
-    task.title = taskTitle;
-    task.description = taskDescription;
-
     dispatch({
-      type: "REMOVE_TASK",
-      columnTask: [...tasks.filter((task: TaskModel) => task.id !== id), task],
+      type: "EDIT_TASK",
+      editableTask: {...task, title: taskTitle, description: taskDescription},
     });
 
     setTaskTitle("");
