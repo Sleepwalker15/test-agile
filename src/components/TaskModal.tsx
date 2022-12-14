@@ -35,13 +35,12 @@ const TaskModal = ({
   task,
   addingTask,
 }: AddTaskModalProps) => {
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
 
   const taskCollection: CollectionOfTaskType = useSelector((state: CollectionOfTaskType) => state);
 
   const tasks: TaskModel[] = taskCollection["needs"];
-
 
   const [taskTitle, setTaskTitle] = useState<string>(task ? task.title : "");
   const [taskDescription, setTaskDescription] = useState<string>( task ? task.description : "");
@@ -68,9 +67,7 @@ const TaskModal = ({
   const editTask = () => {
 
     const id = task.id;
-
     task.title = taskTitle;
-
     task.description = taskDescription;
 
     dispatch({
