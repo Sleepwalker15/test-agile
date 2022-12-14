@@ -55,8 +55,10 @@ const defaultState: CollectionOfTaskType = {
 
 
 
-const reducer = (state = defaultState,
-                 action: ActionsTypes): CollectionOfTaskType => {
+const reducer = (
+  state = defaultState,
+  action: ActionsTypes
+): CollectionOfTaskType => {
 
   switch (action.type) {
     case "ADD_TASK":
@@ -94,13 +96,16 @@ export default () => {
 export const store = createStore(persistedReducer);
 export const persistor = persistStore(store);
 
-export const addTask = (): {
-  type: "ADD_TASK";
-} => {
-  return {
+
+
+
+
+export const addTask = (newTask: TaskModel) =>
+  ({
     type: "ADD_TASK",
-  } as const;
-};
+    newTask,
+  } as const);
+
 
 export const removeTask = (): {
   type: "REMOVE_TASK";
@@ -133,3 +138,5 @@ export const change_task_status = (): {
     type: "CHANGE_TASK_STATUS",
   } as const;
 };
+
+

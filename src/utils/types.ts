@@ -10,7 +10,7 @@ export type CollectionOfTaskType = {
 export interface TaskModel {
   id: string;
   title: string;
-  description?: string
+  description: string
   column: ColumnType;
   isEditing: boolean
   color: string;
@@ -23,12 +23,16 @@ export interface DragItem {
   from: ColumnType;
 }
 
+
 export type ActionsTypes = {
-  type: any;
-  task: any;
+  type: "ADD_TASK" | "REMOVE_TASK" | "DROP_TASK_FROM" | "SWAP_TASK" | "EDIT_TASK";
+  task: TaskModel;
   tasksId: string;
-  taskCollection: any;
-  columnTask: any;
+  taskCollection: CollectionOfTaskType,
+  columnTask: TaskModel[],
 }
+
+
+
 
 

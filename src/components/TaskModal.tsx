@@ -37,6 +37,7 @@ const TaskModal = ({
 }: AddTaskModalProps) => {
   const dispatch = useDispatch();
 
+  // @ts-ignore
   const taskCollection: CollectionOfTaskType = useSelector((state) => state);
 
   const tasks: TaskModel[] = taskCollection["needs"];
@@ -44,7 +45,7 @@ const TaskModal = ({
 
   const [taskTitle, setTaskTitle] = useState<string>(task ? task.title : "");
   const [taskDescription, setTaskDescription] = useState<string>( task ? task.description : "");
-  const [confirme, setConfirme] = useState<boolean>(true);
+  const [confirm, setConfirm] = useState<boolean>(true);
 
 
   const addTask = () => {
@@ -71,17 +72,19 @@ const TaskModal = ({
     task.title = taskTitle;
 
     task.description = taskDescription;
+
     dispatch({
-      type: "EDIT_TASK",
+      type: "REMOVE_TASK",
       columnTask: [...tasks.filter((task: TaskModel) => task.id !== id), task],
     });
+
     setTaskTitle("");
     setTaskDescription("");
     onClose();
   };
 
   const handleConfirm = () => {
-    setConfirme(!confirme);
+    setConfirm(!confirm);
   };
 
   return (
@@ -112,7 +115,7 @@ const TaskModal = ({
             <Button variant="ghost" onClick={addTask}>
               Добавить задачу
             </Button>
-          ) : confirme ? (
+          ) : confirm ? (
             <Button variant="ghost" onClick={handleConfirm}>
               Сохранить задачу
             </Button>
