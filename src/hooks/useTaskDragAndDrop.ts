@@ -60,10 +60,6 @@ export function useTaskDragAndDrop<T extends HTMLElement>(
       const isMouseYBelowHoveredMiddleHeight =
         mouseYRelativeToHovered > hoveredMiddleHeight;
 
-      // Only perform the move when the mouse has crossed half of the items height
-      // When dragging downwards, only move when the cursor is below 50%
-      // When dragging upwards, only move when the cursor is above 50%
-
       if (isDraggedItemAboveHovered && isMouseYAboveHoveredMiddleHeight) {
         return;
       }
@@ -75,10 +71,7 @@ export function useTaskDragAndDrop<T extends HTMLElement>(
       // Time to actually perform the action
       handleDropHover(draggedItemIndex, hoveredItemIndex);
 
-      // Note: we're mutating the monitor item here!
-      // Generally it's better to avoid mutations,
-      // but it's good here for the sake of performance
-      // to avoid expensive index searches.
+
       item.index = hoveredItemIndex;
     },
   });
